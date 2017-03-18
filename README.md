@@ -1,2 +1,2 @@
-# giphyAPI
-Homework6
+# TriviaGame
+Homework 5
