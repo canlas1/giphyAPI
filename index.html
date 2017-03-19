@@ -26,7 +26,7 @@
         <h1>Giphy Animal Search</h1>
         <!-- Gifs will Get Dumped Dere -->
         <div id="giphy-container"></div>
-        <div class="giphy-view"></div>
+        <div id="giphy-view"></div>
         <!-- Rendered Buttons will get Dumped Here  -->
         <form id="giphy-form">
             <label for="giphy-input">Search for Giphy</label>
@@ -38,33 +38,112 @@
     </div>
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript">
-    // Example URL for Giphy API
-    var giphySearch = "search";
-    var giphyTrend = "trending";
+// This .on("click") function will trigger the AJAX Call
+      $("#find-giphy").on("click", function(event){
+         // event.preventDefault() can be used to prevent an event's default behavior.
+        // Here, it prevents the submit button from trying to submit a form when clicked
+        event.preventDefault();
 
-    var queryTrend = "http://api.giphy.com/v1/gifs/" + giphyTrend + "?api_key=dc6zaTOxFJmzC";
-    var querySearch = "http://api.giphy.com/v1/gifs/" + giphySearch + "?api_key=dc6zaTOxFJmzC";
-    var giphyArr = []; //create new empty array
-    for (var i = 0; i < giphyArr.length; i++) { //loop through array starting at index 0
-        console.log(giphyArr);
-    }
+        // Here we grab the text from the input box
+        var giphyTopic = $("#giphy-input").val();
+
+        //construct API URL
+        var authKey = "dc6zaTOxFJmzC";
+        var searchTopic = "";//example of string.  Will replace with JSON in script
+        // Example of API docs "search" and "q"
+        var giphySearch = "search?q=";  
+        var queryURL = "http://api.giphy.com/v1/gifs/" + giphySearch + giphyTopic + "&api_key=" + authKey;
+        console.log(queryURL);
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response) {
+          $("#giphy-view").text(JSON.stringify(response));
+        });
+        
+        var giphyArr = []; //create new empty array
+        for (var i = 0; i < giphyArr.length; i++) { //loop through array starting at index 0
+            console.log(giphyArr);
+        }
+     });
 
 
-    $.ajax({ //
-        url: queryTrend,
-        method: 'GET'
-    }).done(function(response) {
-        console.log(response);
-        $(".giphy-view").html("New ID: " + response.data[0].id); //grabbing response from API then data, first object in the array, then the id
-        console.log("New ID: " + response.data[0].id);
-    });
 
-    $.ajax({
-        url: querySearch,
-        method: 'GET'
-    }).done(function(response) {
-        console.log("does this work");
-    });
+
+
+
+//     function alertGiphyName() {
+//         var giphyName = $(this).attr("data-name");
+
+//         alert(giphyName);
+
+//     function renderButtons() {
+
+//         // Deleting the movies prior to adding new movies
+//         // (this is necessary otherwise we will have repeat buttons)
+//         $("#giphy-view").empty();
+
+//         // Looping through the array of movies
+//         for (var i = 0; i < giphyArr.length; i++) {
+
+//           // Then dynamicaly generating buttons for each movie in the array
+//           // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+//           var a = $("<button>");
+//           // Adding a class of movie to our button
+//           a.addClass("giphy");
+//           // Adding a data-attribute
+//           a.attr("data-name", giphy[i]);
+//           // Providing the initial button text
+//           a.text(giphy[i]);
+//           // Adding the button to the HTML
+//           $("#giphy-view").append(a);
+//         }
+//       }
+
+//       // This function handles events where one button is clicked
+//       $("#add-giphy").on("click", function(event) {
+//         // Preventing the buttons default behavior when clicked (which is submitting a form)
+//         event.preventDefault();
+//         // This line grabs the input from the textbox
+//         var movie = $("#giphy-input").val().trim();
+
+//         // Adding the movie from the textbox to our array
+//         giphys.push(giphy);
+
+//         // Calling renderButtons which handles the processing of our movie array
+//         renderButtons();
+
+//       });
+
+//       // Function for displaying the movie info
+//       // We're adding a click event listener to all elements with the class "movie"
+//       // We're adding the event listener to the document because it will work for dynamically generated elements
+//       // $(".movies").on("click") will only add listeners to elements that are on the page at that time
+//       $(document).on("click", ".giphy", alertGiphyName);
+
+//       // Calling the renderButtons function to display the intial buttons
+//       renderButtons();
+
+//       };
+
+
+
+    // $.ajax({ //
+    //     url: querySearch,
+    //     method: 'GET'
+    // }).done(function(response) {
+    //     console.log(response);
+    //     // $(".giphy-view").html("New ID: " + response.data[0].id); //grabbing response from API then data, first object in the array, then the id
+    //     // console.log("New ID: " + response.data[0].id);
+    // });
+
+    // $.ajax({
+    //     url: querySearch,
+    //     method: 'GET'
+    // }).done(function(response) {
+    //     console.log("does this work");
+    // });
 
 
 
@@ -196,6 +275,8 @@
 
     // // Calling the renderButtons function to display the intial buttons
     // renderButtons();
+
+
     </script>
     </script>
     </div>
