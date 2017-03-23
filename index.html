@@ -3,283 +3,47 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dennis' Giphy Template</title>
+    <title>DENNIS CAR GIPHY</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!--  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <style type="text/css">
-    button,
-    div,
-    form,
-    input {
-        margin: 10px;
-    }
-    </style>
+</head>
+<style type="text/css">
+button,
+div,
+form,
+input {
+    margin: 10px;
+}
+</style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Giphy Animal Search</h1>
-        <!-- Gifs will Get Dumped Dere -->
-        <div id="giphy-container"></div>
-        <div id="giphy-view"></div>
-        <!-- Rendered Buttons will get Dumped Here  -->
-        <form id="giphy-form">
-            <label for="giphy-input">Search for Giphy</label>
-            <input type="text" id="giphy-input">
-            <br>
-            <!-- This button will trigger our AJAX call -->
-            <input id="find-giphy" type="submit" value="Giphy Search">
-        </form>
+    <div>
+        <div class="container-fluid">
+            <div class="jumbotron" id="searchBar" style="margin-bottom: 5px;">
+                <h1>Car Giphies</h1>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" id="search" placeholder="Add Car Here" class="form-control">
+                        <span class="input-group-btn">    
+                        <button type="button" class="btn btn-default form-control" id="submit">Click Here 
+                        </button>
+                        </span>
+                    </div>
+                </div>
+                <div id="buttons"></div>
+            </div>
+        </div>
     </div>
-    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript">
-// This .on("click") function will trigger the AJAX Call
-      $("#find-giphy").on("click", function(event){
-         // event.preventDefault() can be used to prevent an event's default behavior.
-        // Here, it prevents the submit button from trying to submit a form when clicked
-        event.preventDefault();
-
-        // Here we grab the text from the input box
-        var giphyTopic = $("#giphy-input").val();
-
-        //construct API URL
-        var authKey = "dc6zaTOxFJmzC";
-        var searchTopic = "";//example of string.  Will replace with JSON in script
-        // Example of API docs "search" and "q"
-        var giphySearch = "search?q=";  
-        var queryURL = "http://api.giphy.com/v1/gifs/" + giphySearch + giphyTopic + "&api_key=" + authKey;
-        console.log(queryURL);
-
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).done(function(response) {
-          $("#giphy-view").text(JSON.stringify(response));
-        });
-        
-        var giphyArr = []; //create new empty array
-        for (var i = 0; i < giphyArr.length; i++) { //loop through array starting at index 0
-            console.log(giphyArr);
-        }
-     });
-
-
-
-
-
-
-//     function alertGiphyName() {
-//         var giphyName = $(this).attr("data-name");
-
-//         alert(giphyName);
-
-//     function renderButtons() {
-
-//         // Deleting the movies prior to adding new movies
-//         // (this is necessary otherwise we will have repeat buttons)
-//         $("#giphy-view").empty();
-
-//         // Looping through the array of movies
-//         for (var i = 0; i < giphyArr.length; i++) {
-
-//           // Then dynamicaly generating buttons for each movie in the array
-//           // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-//           var a = $("<button>");
-//           // Adding a class of movie to our button
-//           a.addClass("giphy");
-//           // Adding a data-attribute
-//           a.attr("data-name", giphy[i]);
-//           // Providing the initial button text
-//           a.text(giphy[i]);
-//           // Adding the button to the HTML
-//           $("#giphy-view").append(a);
-//         }
-//       }
-
-//       // This function handles events where one button is clicked
-//       $("#add-giphy").on("click", function(event) {
-//         // Preventing the buttons default behavior when clicked (which is submitting a form)
-//         event.preventDefault();
-//         // This line grabs the input from the textbox
-//         var movie = $("#giphy-input").val().trim();
-
-//         // Adding the movie from the textbox to our array
-//         giphys.push(giphy);
-
-//         // Calling renderButtons which handles the processing of our movie array
-//         renderButtons();
-
-//       });
-
-//       // Function for displaying the movie info
-//       // We're adding a click event listener to all elements with the class "movie"
-//       // We're adding the event listener to the document because it will work for dynamically generated elements
-//       // $(".movies").on("click") will only add listeners to elements that are on the page at that time
-//       $(document).on("click", ".giphy", alertGiphyName);
-
-//       // Calling the renderButtons function to display the intial buttons
-//       renderButtons();
-
-//       };
-
-
-
-    // $.ajax({ //
-    //     url: querySearch,
-    //     method: 'GET'
-    // }).done(function(response) {
-    //     console.log(response);
-    //     // $(".giphy-view").html("New ID: " + response.data[0].id); //grabbing response from API then data, first object in the array, then the id
-    //     // console.log("New ID: " + response.data[0].id);
-    // });
-
-    // $.ajax({
-    //     url: querySearch,
-    //     method: 'GET'
-    // }).done(function(response) {
-    //     console.log("does this work");
-    // });
-
-
-
-
-    //     Chaining several jQuery methods to achieve the following:
-    //     var giphyForm = $("giphy-form"); // Get a reference to the table as a jQuery object
-    //         .children() // Get all of table's immediate children as an array
-    //         .eq(1) Get element at the first index of this returned array (the <tbody>)
-    //         .children() // Get an array of all <tr> children inside the returned <tbody>
-    //         .eq(0) // Get the 0th child of this returned array (the first <tr>)
-    //         .children("); // Get an array of all <td> children inside the returned <tr>
-
-    //         console.log(giphyForm);
-    //     Setting the inner text of each <td> in the giphyForm array
-    //         giphyForm.eq(0).text(response.id);
-
-    //         giphyForm.eq(1).text(response.Year);
-
-    //         giphyForm.eq(2).text(response.Actors);
-
-
-
-
-
-    //     function renderButtons() { //function for displaying giphy data
-    //         for (var i = 0; i < giphyArr.length; i++) { //loop through array starting at index 0
-    //             console.log(giphyArr); // make sure that object is taken from the API by checking console
-
-    //             // Then dynamicaly generating buttons for each movie in the array
-    //             // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-    //             var a = $("<button>");
-    //             // Adding a class of movie to our button
-    //             a.addClass("giphy");
-    //             // Adding a data-attribute
-    //             a.attr("data-name", giphyArr[i]);
-    //             // Providing the initial button text
-    //             a.text(giphyArr[i]);
-    //             // Adding the button to the HTML
-    //             $("#giphy-view").append(a);
-    //         }
-    //     }
-
-    // });
-
-    // $("#add-giphy").on("click", function(event) {
-    //     // event.preventDefault() prevents the form from trying to submit itself.
-    //     // We're using a form so that the user can hit enter instead of clicking the button if they want
-    //     event.preventDefault();
-
-    //     // This line will grab the text from the input box
-    //     var giphy = $("#giphy-input").val().trim();
-    //     // The movie from the textbox is then added to our array
-    //     giphys.push(giphy);
-
-    //     // calling renderButtons which handles the processing of our movie array
-    //     renderButtons();
-    // });
-
-    // // Calling the renderButtons function at least once to display the initial list of movies
-    // renderButtons();
-
-
-    // // Deleting the giphy buttons prior to adding new movie buttons
-    // // (this is necessary otherwise we will have repeat buttons)
-    // $("#giphy-view").empty();
-
-
-    // }
-
-
-
-
-
-
-    //   // Initial array of movies
-    // var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
-
-    // // Generic function for capturing the movie name from the data-attribute
-    // function alertMovieName() {
-    //   var movieName = $(this).attr("data-name");
-
-    //   alert(movieName);
-    // }
-
-    // // Function for displaying movie data
-    // function renderButtons() {
-
-    //   // Deleting the movies prior to adding new movies
-    //   // (this is necessary otherwise we will have repeat buttons)
-    //   $("#movies-view").empty();
-
-    //   // Looping through the array of movies
-    //   for (var i = 0; i < movies.length; i++) {
-
-    //     // Then dynamicaly generating buttons for each movie in the array
-    //     // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-    //     var a = $("<button>");
-    //     // Adding a class of movie to our button
-    //     a.addClass("movie");
-    //     // Adding a data-attribute
-    //     a.attr("data-name", movies[i]);
-    //     // Providing the initial button text
-    //     a.text(movies[i]);
-    //     // Adding the button to the HTML
-    //     $("#movies-view").append(a);
-    //   }
-    // }
-
-    // // This function handles events where one button is clicked
-    // $("#add-movie").on("click", function(event) {
-    //   // Preventing the buttons default behavior when clicked (which is submitting a form)
-    //   event.preventDefault();
-    //   // This line grabs the input from the textbox
-    //   var movie = $("#movie-input").val().trim();
-
-    //   // Adding the movie from the textbox to our array
-    //   movies.push(movie);
-
-    //   // Calling renderButtons which handles the processing of our movie array
-    //   renderButtons();
-
-    // });
-
-    // // Function for displaying the movie info
-    // // We're adding a click event listener to all elements with the class "movie"
-    // // We're adding the event listener to the document because it will work for dynamically generated elements
-    // // $(".movies").on("click") will only add listeners to elements that are on the page at that time
-    // $(document).on("click", ".movie", alertMovieName);
-
-    // // Calling the renderButtons function to display the intial buttons
-    // renderButtons();
-
-
-    </script>
-    </script>
-    </div>
+    <div id="results" class="text-center"></div>
+    <!-- <script type="text/javascript"></script> -->
+    <!-- link javascript locally -->
+    <script src="assets/javascript/app.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
